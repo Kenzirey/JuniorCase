@@ -1,0 +1,26 @@
+# dataconnect.yaml (project root)
+specVersion: "v1"
+serviceId:    "intranettcase"
+location:     "us-central1"
+
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "intranettcase-fdc"
+
+# Tell CLI exactly which connector(s) exist and how to generate SDKs for them:
+connectors:
+  default:                    # ← your connectorId
+    region: us-central1       # ← must match your `location` above or override it
+    # point at the folder containing your connector’s GraphQL files:
+    connectorDir: "./connector"  
+
+    # and underneath here, specify where to GENERATE your SDKs:
+    generate:
+      dartSdk:
+        outputDir: lib/src/dataconnect/default_connector
+        package: default_connector
+      # (you can add javascriptSdk, swiftSdk, etc. here if you need them)
